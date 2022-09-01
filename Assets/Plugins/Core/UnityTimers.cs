@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Core.LowLevel
+namespace Core
 {
     /// <summary>
     /// Синхронный таймер для работы в потоке Unity

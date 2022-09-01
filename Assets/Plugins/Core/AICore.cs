@@ -5,9 +5,9 @@ using UnityEngine;
 using Core.Async;
 using Core.Async.Tasks;
 using Core.LowLevel;
-using Core;
+using Core.Async.LowLevel;
 
-namespace Main.AI
+namespace Core.AI
 {
     public class AICore : MonoBehaviour, ISupportAsyncCall
     {

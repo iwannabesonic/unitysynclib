@@ -1,10 +1,11 @@
 ﻿using Core;
 using Core.Async;
+using Core.Async.LowLevel;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Core
+namespace Core.Async
 {
     /// <summary>
     /// Подкомпонент обычного Transform. Позволяет делать снимки

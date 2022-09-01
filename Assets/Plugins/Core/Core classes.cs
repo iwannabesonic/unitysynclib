@@ -7,8 +7,9 @@ using System.Runtime.Serialization;
 using System.Text;
 using UnityEngine;
 using Core.Json;
+using Core.LowLevel;
 
-namespace Core.LowLevel
+namespace Core
 {
     public interface IProgram<in T>
     {
@@ -573,6 +574,12 @@ namespace Core.LowLevel
         public VaultItem Add(string key, double baseValue, ICollection<string> tags)
         {
             var newItm = new VaultItem(key, baseValue, tags);
+            dict.Add(key, newItm);
+            return newItm;
+        }
+        public VaultItem Add(string key, double baseValue, double addValue = 0, double rawValue = 0, double multValue = 1)
+        {
+            var newItm = new VaultItem(key, baseValue) { AdditionalValue = addValue, RawValue = rawValue, MultipileValue = multValue };
             dict.Add(key, newItm);
             return newItm;
         }

@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Threading;
 using UnityEngine;
 
-namespace Core.Async
+namespace Core.Async.LowLevel
 {
     public interface IExecutable : IDisposable
     {
@@ -14,24 +14,7 @@ namespace Core.Async
 
         bool IsExecuted { get; }
     }
-    public interface ISupportAsyncCall
-    {
-        bool enabledUpdate { get; }
-        void AsyncUpdate(TimeSpan updateDelay);
-        bool enabledLateUpdate { get; }
-        void AsyncLateUpdate(TimeSpan updateDelay);
-    }
-    public static class ISupportAsyncCallExtentions
-    {
-        public static void RegisterSelf(this ISupportAsyncCall obj, string threadName)
-        {
-            UnityAsyncCoreHandle.Self.RegisterCall(threadName, obj);
-        }
-        public static void RemoveSelf(this ISupportAsyncCall obj, string threadName)
-        {
-            UnityAsyncCoreHandle.Self?.RemoveCall(threadName, obj);
-        }
-    }
+    
     public class AsyncCore : IExecutable, IEnumerable<NativeThread>
     {
         private Dictionary<string, NativeThread> list = new Dictionary<string, NativeThread>();

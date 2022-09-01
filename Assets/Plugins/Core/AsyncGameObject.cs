@@ -7,8 +7,9 @@ using Core.LowLevel;
 using Core.Async;
 using Core.Async.Tasks;
 using UnityEngine;
+using Core.Async.LowLevel;
 
-namespace Core
+namespace Core.Async
 {
     /// <summary>
     /// Позволяет выполнять безопасно операции вне основного потока unity

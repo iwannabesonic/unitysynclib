@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-namespace Core
+namespace Core.Async
 {
     public class NativeTransformDispatcher : UnitySingleton<NativeTransformDispatcher>
     {

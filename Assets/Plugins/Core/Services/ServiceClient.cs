@@ -14,6 +14,8 @@ namespace Core
     /// </summary>
     public class ServiceClient : UnitySingleton<ServiceClient>, ISupportAsyncCall
     {
+        [SerializeField] private bool syncLoadServices = false;
+
         private List<IService> services = new List<IService>();
 
         private List<IServiceUpdate> reqUpdate = new List<IServiceUpdate>();
@@ -56,6 +58,11 @@ namespace Core
             return null;
         }
 
+        public static Task<T> GetServiceAsync<T>() where T : class, IService
+        {
+            return Task.Run(() => GetService<T>());
+        }
+
         private bool SameTypeContains(Type type)
         {
             foreach(var sr in services)
@@ -88,11 +95,17 @@ namespace Core
 
         protected override async void SingletonAwake()
         {
-            foreach(var serv in await LoadedMarkedServices())
+            if (syncLoadServices)
             {
-                RegisterNew(serv.Item2);
+                foreach (var serv in LoadedMarkedServices().Result)
+                    RegisterNew(serv.Item2);
             }
-            Debug.Log($"Loaded {services.Count} services");
+            else
+            {
+                foreach (var serv in await LoadedMarkedServices())
+                    RegisterNew(serv.Item2);
+            }
+            UnityEngine.Debug.Log($"Loaded {services.Count} services");
             this.RegisterSelf(ThreadDefinition.servicesTread);
         }
         async Task<List<(int, IService)>> LoadedMarkedServices()
